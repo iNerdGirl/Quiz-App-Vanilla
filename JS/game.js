@@ -1,5 +1,8 @@
 const question = document.querySelector('#question');
 const choices = Array.from(document.querySelectorAll('.choice-text'));
+const hudQuestionText = document.querySelector('#hud-question-text');
+const hudScoreText = document.querySelector('#hud-score-text');
+const progressBarFill = document.querySelector('#progress-bar-fill');
 
 let currentQuestion = {};
 let acceptingAnswers = false;
@@ -52,6 +55,10 @@ const getNewQuestion = () => {
     return window.location.assign('/end.html');
   }
   questionCounter++;
+
+  hudQuestionText.innerText = `${questionCounter}/${MAX_QUESTIONS}`
+  progressBarFill.style.width = `${(questionCounter/MAX_QUESTIONS)*100}%`
+
   const questionIndex = Math.floor(Math.random() * avaialbleQuestions.length);
   currentQuestion = avaialbleQuestions[questionIndex];
   question.innerText = currentQuestion.question;
@@ -77,6 +84,14 @@ choices.forEach(choice => {
     const classToApply =
       selectedAnswer == currentQuestion.answer ? 'correct' : 'incorrect';
 
+    if (classToApply === 'correct') {
+      incrementScore(CORRECT_BONUS);
+    }
+    
+    if (classToApply === 'incorrect') {
+      decrementScore(CORRECT_BONUS);
+    }
+
     selectedChoice.parentElement.classList.add(classToApply);
     setTimeout(() => {
       selectedChoice.parentElement.classList.remove(classToApply);
@@ -84,5 +99,15 @@ choices.forEach(choice => {
     }, 1500);
   });
 });
+
+const incrementScore = num => {
+  score += num;
+  hudScoreText.innerText = score
+}
+
+const decrementScore = num => {
+  score -= num;
+  hudScoreText.innerText = score
+}
 
 startGame();
