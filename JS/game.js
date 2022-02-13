@@ -56,8 +56,9 @@ const getNewQuestion = () => {
   }
   questionCounter++;
 
-  hudQuestionText.innerText = `${questionCounter}/${MAX_QUESTIONS}`
-  progressBarFill.style.width = `${(questionCounter/MAX_QUESTIONS)*100}%`
+  hudQuestionText.innerText = `${questionCounter}/${MAX_QUESTIONS}`;
+
+  progressBarFill.style.width = `${(questionCounter/MAX_QUESTIONS)*100}%`;
 
   const questionIndex = Math.floor(Math.random() * avaialbleQuestions.length);
   currentQuestion = avaialbleQuestions[questionIndex];
@@ -102,12 +103,12 @@ choices.forEach(choice => {
 
 const incrementScore = num => {
   score += num;
-  hudScoreText.innerText = score
+  hudScoreText.innerText = score;
 }
 
 const decrementScore = num => {
   score -= num;
-  hudScoreText.innerText = score
+  hudScoreText.innerText = score;
 }
 
 startGame();
